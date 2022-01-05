@@ -1,0 +1,24 @@
+videos:
+  155633.mp4:
+    sections: 
+      - [120, 30]
+      - [10, 10]
+      - [30, 3]
+  154140.mp4:
+    sections:
+      - [120, 30]
+
+video_dir: "./videos"
+image_save_dir: "./test_save_img"
+video_save_dir: "./test_save_video"
+
+
+fps: 3
+
+# mode
+## image : image 추출
+## video : video 추출
+mode: 
+  - image
+  - video
+
