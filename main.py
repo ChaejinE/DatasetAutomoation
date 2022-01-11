@@ -3,6 +3,17 @@ from unittest import loader
 from extraxt_video import VideoExtractor
 import os
 from tqdm import tqdm
+from datetime import datetime
+
+def cvtTime2Interval(time1, time2):
+    time_1 = datetime.strptime(time1,"%M:%S")
+    time_2 = datetime.strptime(time2,"%M:%S")
+
+    return (time_2 - time_1).seconds
+
+def cvtTime2Second(time):
+    d = datetime.strptime(time, '%M:%S')
+    return d.second + d.minute * 60 + d.hour * 3600
 
 def main(config):
     video_dir = config["video_dir"]
@@ -19,12 +30,16 @@ def main(config):
         
         if "image" in mode:
             os.makedirs(image_save_dir, exist_ok=True)
+            print(f"sections : {config['videos'][video]['sections']}")
             sections = config["videos"][video]["sections"]
+            
             for section in tqdm(sections, desc=f"[{video}] Image Extracting..."):
-                start, time = section
-                save_dir = os.path.join(image_save_dir, video[:-4], f"{start}to{start+time}")
+                time1, time2 = section
+                start, time_interval = cvtTime2Second(time1), cvtTime2Interval(time1, time2)
+                save_dir = os.path.join(image_save_dir, video[:-4], f"{time1}to{time2}")
                 os.makedirs(save_dir, exist_ok=True)
-                extractor.generate_jpeg(out_file_dir=save_dir, start=start, time=time, fps=config["fps"])
+                extractor.generate_jpeg(out_file_dir=save_dir, start=start, time=time_interval, fps=config["fps"])
+                
                 
         if "video" in mode:
             os.makedirs(video_save_dir, exist_ok=True)

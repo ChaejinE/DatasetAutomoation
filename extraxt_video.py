@@ -61,7 +61,7 @@ class VideoExtractor:
         for idx, img in enumerate(result):
             img = cv2.resize(img, dsize=resize) if resize is not None else img
             img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-            cv2.imwrite(f"{out_file_dir}/{self.file_name[:-4]}_{idx}.jpg", img)
+            cv2.imwrite(f"{out_file_dir}/{self.file_name[:-4]}_{start}-{time}_{idx}.jpg", img)
         
     def get_jpeg_images(self, start, time, is_gray=None):
         out, _ = (
