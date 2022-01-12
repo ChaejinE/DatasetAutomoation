@@ -10,11 +10,18 @@ class VideoExtractor:
         self.video_stream = self.get_video_stream()
         self.width = self.get_video_width()
         self.height = self.get_video_height()
+        self._current_imgNames = []
     
     def load_video(self):
         video = ffmpeg.input(self.file_path)
         return video
 
+    def get_current_image_names(self):
+        import copy
+        result = copy.deepcopy(self._current_imgNames)
+        self._current_imgNames.clear()
+        return result
+    
     def get_video_stream(self):
         probe = ffmpeg.probe(self.file_path)
         video_stream = next((stream for stream in probe['streams'] if stream['codec_type'] == 'video'), None)
@@ -62,6 +69,7 @@ class VideoExtractor:
             img = cv2.resize(img, dsize=resize) if resize is not None else img
             img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
             cv2.imwrite(f"{out_file_dir}/{self.file_name[:-4]}_{start}-{time}_{idx}.jpg", img)
+            self._current_imgNames.append(f"{self.file_name[:-4]}_{start}-{time}_{idx}.jpg")
         
     def get_jpeg_images(self, start, time, is_gray=None):
         out, _ = (

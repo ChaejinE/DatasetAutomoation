@@ -1,0 +1,30 @@
+inference_prgm: AIT.DL.YOLOv5
+temp_root: /tmp
+
+# inference data.yaml 관련
+data_yaml: neubie_data.yaml
+names:
+  - bicycle
+  - car
+  - motorcycle
+  - person
+  - scooter
+  - dog
+  - bollard
+  - traffic-light-red
+  - traffic-light-green
+
+# inference test.py 실행 관련
+weights: /home/chaejin/Desktop/cjlotto/neubility/weights/SongpaKT/best_80eph.pt
+gpu: 0
+img_size: 832
+iou_thr: 0.6
+conf_thr: 0.4
+
+# test.py 실행 시 생성되는 파일 관련
+inference_folder_name: labels
+
+# temp_root에서 처리되는 파일 관련
+temp_save_folder_name: cvat
+cvat_zip_file_name: for_cvat
+cvat_save_dir: data/obj_train_data/od

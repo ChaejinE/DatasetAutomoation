@@ -1,3 +1,16 @@
+# mode
+## image : image 추출
+## video : video 추출
+## inference : label 생성 및 CVAT를 위한 label.txt, Zipfile 생성
+mode: 
+  - image
+  # - video
+  - inference
+
+# 1초당 꺼낼 frame 개수
+fps: 1
+
+# Videos
 videos:
   150626.mp4:
     sections: 
@@ -19,17 +32,17 @@ videos:
       - [02:48, 03:15]
       - [06:11, 07:34]
 
+# directories
 video_dir: "./videos"
 image_save_dir: "./test_save_img"
 video_save_dir: "./test_save_video"
 
+# For inference
+inference_yaml_path: ./inference/yolov5.yaml
 
-fps: 2
-
-# mode
-## image : image 추출
-## video : video 추출
-mode: 
-  - image
-  # - video
-
+inference_all: True
+path_all_for_cvat: PoC/hanti/v1/train/images
+inference_sub_all: True
+path_sub_all_for_cvat: PoC/hanti/v1/train/images
+inference_detail: True
+path_detail_for_cvat: PoC/hanti/v1/train/images
